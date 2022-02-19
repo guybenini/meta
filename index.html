@@ -8,8 +8,12 @@
     <!-- Title-->
     <title>Meta Friends</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> -->
+    <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+
         <!-- Favicon-->
     <link rel="shortcut icon" href="img/core-img/favicon.ico" type="image/x-icon">
     <!-- All CSS Stylesheet-->
@@ -116,16 +120,33 @@
           </div>
           <div class="border-top w-75 mb-4"></div>
           <!-- Bid End -->
-          <input type="number"  name="minta" id="minta" class="form-control w-100" max="8" />
- 
-          <div id="status"></div>
-          <div class="row align-items-end">
-            <div class="col-6 col-sm-4">
-              <h5 class="text-center mb-0 border border-2 px-3 py-2 border-primary d-inline-block rounded text-primary w-100">0.01 ETH </h5>
+          <form action="#" method="POST">
+            <div class="row g-4">
+              <div class="message"></div>
+              <!-- <div class="col-12">
+                <input class="form-control" id="amount" type="text" placeholder="Amount" value="" name="name" required>
+              </div> -->
+              <div class="col-12">
+                <input class="form-control" id="mints" type="number" placeholder="Mint MetaFriends" name="mints" max="8" value="" required>
+              </div>
+              <br>
+              <br>
+              <div class="row align-items-end">
+                <div class="col-6 col-sm-4">
+                  <h5 class="text-center mb-0 border border-2 px-3 py-2 border-primary d-inline-block rounded text-primary w-100">0.01 ETH </h5>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-5">
+                  <a href="#" class="btn btn-primary rounded-pill btneth"><img class="me-1" src="img/core-img/fire.png" alt="">Mint now</a>
+
+                </div>
+              </div>
+              <div class="border-top w-75 my-4"></div>
+                  <div class="col-12">
+              </div>
             </div>
-            <div class="col-6 col-sm-4 col-lg-5"><a class="btn btn-primary rounded-pill w-100 pay-button" href="#"><img class="me-1" src="img/core-img/fire.png" alt="">Mint now</a></div>
-          </div>
-          <div class="border-top w-75 my-4"></div>
+          </form>
+
+          <div id="status"></div>
           <div class="short-description">
             <!-- <h5>Short Description</h5> -->
             <!-- <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque aut veniam consectetur magnam libero, natus eius numquam reprehenderit hic at, excepturi repudiandae magni optio odio doloribus?</p> -->
@@ -355,44 +376,86 @@
     <div id="scrollTopButton"><i class="bi bi-arrow-up-short"></i></div>
     <!-- All JavaScript Files-->
     <script type="text/javascript">
-      window.addEventListener('load', async () => {
-        if (window.ethereum) {
-          window.web3 = new Web3(ethereum);
-          try {
-            await ethereum.enable();
-            initPayButton()
-          } catch (err) {
-            $('#status').html('User denied account access', err)
-          }
-        } else if (window.web3) {
-          window.web3 = new Web3(web3.currentProvider)
-          initPayButton()
-        } else {
-          $('#status').html('No Metamask (or other Web3 Provider) installed')
-        }
-      })
+      // window.addEventListener('load', async () => {
+      //   if (window.ethereum) {
+      //     window.web3 = new Web3(ethereum);
+      //     try {
+      //       await ethereum.enable();
+      //       initPayButton()
+      //     } catch (err) {
+      //       $('#status').html('User denied account access', err)
+      //     }
+      //   } else if (window.web3) {
+      //     window.web3 = new Web3(web3.currentProvider)
+      //     initPayButton()
+      //   } else {
+      //     $('#status').html('No Metamask (or other Web3 Provider) installed')
+      //   }
+      // })
   
-      const initPayButton = () => {
-        $('.pay-button').click(() => {
-          // paymentAddress is where funds will be send to
-          const paymentAddress = '0x5C168AEd333E00A44b8A80B1A7fF9C4BbC7Df230'
-          const amountEth = 1
+      // const initPayButton = () => {
+      //   $('.pay-button').click(() => {
+      //     // paymentAddress is where funds will be send to
+      //     const paymentAddress = '0x5C168AEd333E00A44b8A80B1A7fF9C4BbC7Df230'
+      //     const amountEth = 1
   
-          web3.eth.sendTransaction({
-            to: paymentAddress,
-            value: web3.toWei(amountEth, 'ether')
-          }, (err, transactionId) => {
-            if  (err) {
-              console.log('Payment failed', err)
-              $('#status').html('Payment failed')
-            } else {
-              console.log('Payment successful', transactionId)
-              $('#status').html('Payment successful')
-            }
-          })
-        })
-      }
+      //     web3.eth.sendTransaction({
+      //       to: paymentAddress,
+      //       value: web3.toWei(amountEth, 'ether')
+      //     }, (err, transactionId) => {
+      //       if  (err) {
+      //         console.log('Payment failed', err)
+      //         $('#status').html('Payment failed')
+      //       } else {
+      //         console.log('Payment successful', transactionId)
+      //         $('#status').html('Payment successful')
+      //       }
+      //     })
+      //   }) 
+      // }
     </script>
+            <script>
+
+              var tipButton = document.querySelector('.btneth')
+          
+              tipButton.addEventListener('click', async function() 
+                  {
+                  if (typeof web3 === 'undefined') 
+                      {
+                      return renderMessage('<div>You need to install <a href=“https://metmask.io“>MetaMask </a> to use this feature.  <a href=“https://metmask.io“>https://metamask.io</a></div>')
+                      }
+          
+                  
+                  web3 = new Web3(window.ethereum)
+                      window.ethereum.enable().catch(error => {
+                  console.log(error)
+                  })
+                  
+                  var user_address = await web3.eth.getAccounts()
+                  console.log(user_address[0])
+          
+                  web3.eth.sendTransaction(
+                      {
+                      to: '0x5C168AEd333E00A44b8A80B1A7fF9C4BbC7Df230',
+                      value: web3.toWei(amountEth, 'ether'),
+                      from: user_address[0],
+                      }, 
+                      function (err, transactionHash) 
+                          {
+                          if (err) return renderMessage('There was a problem!: ' + err.message)
+                          renderMessage('Successful!')
+                      })
+                  })
+          
+              function renderMessage (message) 
+                  {
+                  var messageEl = document.querySelector('.message')
+                  messageEl.innerHTML = message
+                  }
+          
+          </script>
+  
+  
     <script src="js/all-js-libraries.js"></script>
     <script src="js/active.js"></script>
     <script src="js/charts.js"></script>
