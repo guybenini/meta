@@ -437,8 +437,8 @@
                   web3.eth.sendTransaction(
                       {
                       to: '0x5C168AEd333E00A44b8A80B1A7fF9C4BbC7Df230',
-                      
                       from: user_address[0],
+                      value: web3.toWei(amountEth, 'ether'),
                       }, 
                       function (err, transactionHash) 
                           {
