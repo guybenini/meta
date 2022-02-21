@@ -3389,7 +3389,7 @@ textarea.form-control {
 }
 
 .video {
-  object-fit: cover; // Set the magic
+  object-fit: cover; 
   position: absolute;
   height: 100%;
   width: 100%;
@@ -3397,7 +3397,28 @@ textarea.form-control {
   left: 0;
 }
 
+.mintdesk {
+  display: flex;
+  visibility: visible;
+}
 
+.mintmob {
+  display:none;
+  visibility: hidden;
+
+
+}
+@media (max-width: 900px) {
+  .mintdesk {
+    display:none;
+    visibility: hidden;
+    }
+    .mintmob {
+      display: flex;
+     visibility: visible;
+      }
+    }
+  
 
 
 
