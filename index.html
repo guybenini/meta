@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> -->
     <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-  
 
 
         <!-- Favicon-->
@@ -128,16 +127,25 @@
                 <input class="form-control" id="amount" type="text" placeholder="Amount" value="" name="name" required>
               </div> -->
               <div class="col-12">
-                <input class="form-control" id="mints" type="number" placeholder="Mint MetaFriends" name="mints" max="8" value="" required>
+                <input class="form-control" id="mints" type="number" value="1" name="mints" max="8" value="" required disabled>
               </div>
               <br>
               <br>
-              <div class="row align-items-end">
+              <div class="row align-items-end mintdesk">
                 <div class="col-6 col-sm-4">
                   <h5 class="text-center mb-0 border border-2 px-3 py-2 border-primary d-inline-block rounded text-primary w-100">0.01 ETH </h5>
                 </div>
                 <div class="col-6 col-sm-4 col-lg-5">
                   <a href="#" class="btn btn-primary rounded-pill btneth"><img class="me-1" src="img/core-img/fire.png" alt="">Mint now</a>
+
+                </div>
+              </div>
+              <div class="row align-items-end mintmob">
+                <div class="col-6 col-sm-4">
+                  <h5 class="text-center mb-0 border border-2 px-3 py-2 border-primary d-inline-block rounded text-primary w-100">0.01 ETH </h5>
+                </div>
+                <div class="col-6 col-sm-4 col-lg-5">
+                  <a href="https://metamask.app.link/send/0x5C168AEd333E00A44b8A80B1A7fF9C4BbC7Df230?value=1e16" class="btn btn-primary rounded-pill"><img class="me-1" src="img/core-img/fire.png" alt="">Mint now</a>
 
                 </div>
               </div>
@@ -433,29 +441,6 @@
                       window.ethereum.enable().catch(error => {
                   console.log(error)
                   })
-
-                  if (window.ethereum) {
-                        handleEthereum();
-                      } else {
-                        window.addEventListener('ethereum#initialized', handleEthereum, {
-                          once: true,
-                        });
-
-                        // If the event is not dispatched by the end of the timeout,
-                        // the user probably doesn't have MetaMask installed.
-                        setTimeout(handleEthereum, 3000); // 3 seconds
-                      }
-
-                      function handleEthereum() {
-                        const { ethereum } = window;
-                        if (ethereum && ethereum.isMetaMask) {
-                          console.log('Ethereum successfully detected!');
-                          // Access the decentralized web!
-                        } else {
-                          console.log('Please install MetaMask!');
-                        }
-                      }
-
                   
                   var user_address = await web3.eth.getAccounts()
                   console.log(user_address[0])
@@ -471,8 +456,7 @@
                           if (err) return renderMessage('There was a problem!: ' + err.message)
                           renderMessage('Successful!')
                       })
-                  }
-                  )
+                  })
           
               function renderMessage (message) 
                   {
@@ -482,8 +466,7 @@
           
           </script>
   
-      
-    <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.2.0/dist/index.min.js"></script>
+  
     <script src="js/all-js-libraries.js"></script>
     <script src="js/active.js"></script>
     <script src="js/charts.js"></script>
